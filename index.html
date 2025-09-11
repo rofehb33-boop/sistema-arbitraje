@@ -35,6 +35,7 @@
         }
 
         .nav-tabs {
+            <button class="tab-btn" onclick="cambiarPestaña('formulario-airtable')">📝 Formulario Airtable</button>
             display: flex;
             background: #f8f9fa;
             border-bottom: 3px solid #4b6cb7;
@@ -311,6 +312,19 @@
             <button class="tab-btn" onclick="verificarAcceso('disponibilidad')">📊 Mi Disponibilidad</button>
             <button class="tab-btn" onclick="solicitarAccesoAdmin('disponibilidad-general')">🌐 Disponibilidad General</button>
             <button class="tab-btn" onclick="solicitarAccesoAdmin('estadisticas')">📈 Estadísticas</button>
+            <!-- Pestaña de Formulario Airtable -->
+<div id="formulario-airtable" class="tab-pane">
+  <h2>📝 Registro de Disponibilidad vía Airtable</h2>
+  <p>Complete el siguiente formulario para registrar su disponibilidad como árbitro:</p>
+  <iframe 
+    src="https://airtable.com/appr71tNst1CGibQM/pag9giBBFXEuZj4um/form" 
+    width="100%" 
+    height="800" 
+    frameborder="0"
+    style="border: 1px solid #ccc; border-radius: 8px;">
+  </iframe>
+</div>
+
         </div>
 
         <div class="tab-content">
@@ -914,3 +928,4 @@
     </script>
 </body>
 </html>
+
