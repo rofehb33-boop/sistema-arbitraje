@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema de Gestión de Arbitraje</title>
   <!-- Aquí van tus estilos CSS (puedes copiar los que ya tenías) -->
+ <style>
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+
+  .error-message {
+    color: red;
+    display: none;
+    margin-top: 10px;
+  }
+
+  .tab-pane {
+    display: none;
+  }
+
+  .tab-pane.active {
+    display: block;
+  }
+</style>
 </head>
 <body>
   <div class="container">
@@ -43,10 +77,15 @@
 
       <div id="formulario-airtable" class="tab-pane">
         <h2>📝 Registro vía Airtable</h2>
-        <a href="https://airtable.com/app0oO9e0zIX0F4kO/pagRsfuknfLobdPR3/form3?backgroundColor=blue" target="_blank">
-  <button>📝 Abrir Formulario Airtable</button>
+        <h2>📝 Registro de Disponibilidad vía Airtable</h2>
+  <p>Complete el siguiente formulario para registrar su disponibilidad como árbitro:</p>
+  <a href="https://airtable.com/app0oO9e0zIX0F4kO/pagRsfuknfLobdPR3/form" target="_blank">
+    <button style="padding: 12px 24px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">
+  📝 Abrir Formulario Airtable
+</button>
 </a>
-      </div>
+</div>
+
     </div>
 
     <div id="modalSeguridad" class="modal">
@@ -70,8 +109,29 @@
     }
 
     window.onload = () => cambiarPestaña('login');
-  </script>
+    function verificarAcceso(id) {
+  cambiarPestaña(id);
+}
+
+function solicitarAccesoAdmin(id) {
+  document.getElementById('modalSeguridad').style.display = 'flex';
+  document.getElementById('modalSeguridad').dataset.destino = id;
+}
+
+function verificarClave() {
+  const clave = document.getElementById('claveAcceso').value;
+  const destino = document.getElementById('modalSeguridad').dataset.destino;
+  if (clave === 'admin123') {
+    document.getElementById('modalSeguridad').style.display = 'none';
+    document.getElementById('mensajeError').style.display = 'none';
+    cambiarPestaña(destino);
+  } else {
+    document.getElementById('mensajeError').style.display = 'block';
+  }
+}
+</script>
 </body>
 </html>
+
 
 
