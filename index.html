@@ -50,7 +50,7 @@
     <div class="nav-tabs">
       <button class="tab-btn active" onclick="cambiarPestaña('login')">🔐 Login</button>
       <!-- <button class="tab-btn" onclick="cambiarPestaña('registro')">👥 Registro Árbitros</button> -->
-      <button onclick="verificarAcceso('mi-disponibilidad')">📊 Mi Disponibilidad</button>
+      <button onclick="verificarAcceso('disponibilidad')">📊 Mi Disponibilidad</button>
       <button class="tab-btn" onclick="solicitarAccesoAdmin('disponibilidad-general')">🌐 Disponibilidad General</button>
       <button class="tab-btn" onclick="solicitarAccesoAdmin('estadisticas')">📈 Estadísticas</button>
       <button class="tab-btn" onclick="cambiarPestaña('formulario-airtable')">📝 Formulario Airtable</button>
@@ -185,13 +185,7 @@
                 <div id="disponibilidad-success" class="success-message">✅ Disponibilidad guardada exitosamente!</div>
             </div>
       </div>
-      <div id="mi-disponibilidad" class="tab-pane">
-      <h2>📊 Mi Disponibilidad</h2>
-      <p>Aquí puedes gestionar tu disponibilidad como árbitro.</p>
-      <!-- Aquí podés agregar tu formulario o contenido específico -->
-      </div>
-
-      <div id="disponibilidad-general" class="tab-pane">
+            <div id="disponibilidad-general" class="tab-pane">
         <!-- Filtros y tabla de resultados -->
       </div>
 
@@ -265,6 +259,7 @@ function cambiarPestaña(id) {
 </script>
 </body>
 </html>
+
 
 
 
