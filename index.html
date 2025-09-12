@@ -92,12 +92,82 @@
         <label>Horario específico:</label>
         <input type="time" id="martes-inicio"> a 
         <input type="time" id="martes-fin">
+        <!-- Miércoles -->
+<div class="dia-card">
+  <h3>Miércoles</h3>
+  <select id="miércoles" onchange="toggleHorario('miércoles')">
+    <option value="">Seleccionar</option>
+    <option value="COMPLETA">Disponibilidad Completa</option>
+    <option value="ESPECIAL">Horario Especial</option>
+    <option value="NO">No Disponible</option>
+  </select>
+  <div id="miércoles-horario" style="display: none;">
+    <label>Horario específico:</label>
+    <input type="time" id="miércoles-inicio"> a <input type="time" id="miércoles-fin">
+  </div>
+</div>
+
+<!-- Jueves -->
+<div class="dia-card">
+  <h3>Jueves</h3>
+  <select id="jueves" onchange="toggleHorario('jueves')">
+    <option value="">Seleccionar</option>
+    <option value="COMPLETA">Disponibilidad Completa</option>
+    <option value="ESPECIAL">Horario Especial</option>
+    <option value="NO">No Disponible</option>
+  </select>
+  <div id="jueves-horario" style="display: none;">
+    <label>Horario específico:</label>
+    <input type="time" id="jueves-inicio"> a <input type="time" id="jueves-fin">
+  </div>
+</div>
+
+<!-- Viernes -->
+<div class="dia-card">
+  <h3>Viernes</h3>
+  <select id="viernes" onchange="toggleHorario('viernes')">
+    <option value="">Seleccionar</option>
+    <option value="COMPLETA">Disponibilidad Completa</option>
+    <option value="ESPECIAL">Horario Especial</option>
+    <option value="NO">No Disponible</option>
+  </select>
+  <div id="viernes-horario" style="display: none;">
+    <label>Horario específico:</label>
+    <input type="time" id="viernes-inicio"> a <input type="time" id="viernes-fin">
+  </div>
+</div>
+
+<!-- Sábado -->
+<div class="dia-card">
+  <h3>Sábado</h3>
+  <select id="sábado" onchange="toggleHorario('sábado')">
+    <option value="">Seleccionar</option>
+    <option value="COMPLETA">Disponibilidad Completa</option>
+    <option value="ESPECIAL">Horario Especial</option>
+    <option value="NO">No Disponible</option>
+  </select>
+  <div id="sábado-horario" style="display: none;">
+    <label>Horario específico:</label>
+    <input type="time" id="sábado-inicio"> a <input type="time" id="sábado-fin">
+  </div>
+</div>
+
+<!-- Domingo -->
+<div class="dia-card">
+  <h3>Domingo</h3>
+  <select id="domingo" onchange="toggleHorario('domingo')">
+    <option value="">Seleccionar</option>
+    <option value="COMPLETA">Disponibilidad Completa</option>
+    <option value="ESPECIAL">Horario Especial</option>
+    <option value="NO">No Disponible</option>
+  </select>
+  <div id="domingo-horario" style="display: none;">
+    <label>Horario específico:</label>
+    <input type="time" id="domingo-inicio"> a <input type="time" id="domingo-fin">
+  </div>
+</div>
       </div>
     </div>
-
-    <!-- Repetí para miércoles, jueves, viernes, sábado, domingo -->
-    <!-- ... -->
-  </div>
 
   <button onclick="guardarDisponibilidad()">💾 Guardar Disponibilidad</button>
   <div id="disponibilidad-success" class="success-message" style="display:none;">
@@ -206,6 +276,7 @@ function guardarDisponibilidad() {
 </script>
 </body>
 </html>
+
 
 
 
