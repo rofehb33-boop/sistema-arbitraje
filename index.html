@@ -170,14 +170,14 @@
 </div>
       </div>
     </div>
-
-  <button onclick="guardarDisponibilidad()">💾 Guardar Disponibilidad</button>
-  <div id="disponibilidad-success" class="success-message" style="display:none;">
+ <div style="text-align: center; margin-top: 20px;">
+  <button onclick="guardarDisponibilidad()" style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">
+    💾 Guardar Disponibilidad
+  </button>
+</div>
     ✅ Disponibilidad guardada exitosamente!
   </div>
 </div>
-
-
             <div id="disponibilidad-general" class="tab-pane">
         <!-- Filtros y tabla de resultados -->
       </div>
@@ -255,29 +255,38 @@ function cambiarPestaña(id) {
   horarioDiv.style.display = select.value === "ESPECIAL" ? "block" : "none";
 }
 
-function guardarDisponibilidad() {
-  const dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
-  const disponibilidad = {};
+<script>
+  function guardarDisponibilidad() {
+    const dias = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+    const disponibilidad = {};
 
-  dias.forEach(dia => {
-    const tipo = document.getElementById(dia).value;
-    if (tipo === "ESPECIAL") {
-      const inicio = document.getElementById(`${dia}-inicio`).value;
-      const fin = document.getElementById(`${dia}-fin`).value;
-      disponibilidad[dia] = { tipo, inicio, fin };
-    } else {
-      disponibilidad[dia] = { tipo };
-    }
-  });
+    dias.forEach(dia => {
+      const tipo = document.getElementById(dia).value;
+      const inicio = document.getElementById(`${dia}-inicio`)?.value || '';
+      const fin = document.getElementById(`${dia}-fin`)?.value || '';
 
-  console.log("Disponibilidad guardada:", disponibilidad);
-  const successMsg = document.getElementById("disponibilidad-success");
-  successMsg.style.display = "block";
-  setTimeout(() => successMsg.style.display = "none", 3000);
-}
+      disponibilidad[dia] = {
+        tipo,
+        horario: tipo === 'ESPECIAL' ? `${inicio} a ${fin}` : ''
+      };
+    });
+
+    console.log('Disponibilidad guardada:', disponibilidad); // Puedes reemplazar esto con envío a Airtable
+
+    // Limpiar los campos
+    dias.forEach(dia => {
+      document.getElementById(dia).value = '';
+      document.getElementById(`${dia}-horario`).style.display = 'none';
+      if (document.getElementById(`${dia}-inicio`)) document.getElementById(`${dia}-inicio`).value = '';
+      if (document.getElementById(`${dia}-fin`)) document.getElementById(`${dia}-fin`).value = '';
+    });
+
+    alert('Disponibilidad guardada correctamente ✅');
+  }
 </script>
 </body>
 </html>
+
 
 
 
