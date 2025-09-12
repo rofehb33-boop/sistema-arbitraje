@@ -413,7 +413,9 @@
 </script>
 
                 </div>
-                function registrarArbitro() {
+               <!--
+<script>
+function registrarArbitro() {
   const nombre = document.getElementById('nombre').value.trim();
   const email = document.getElementById('email').value.trim();
   const celular = document.getElementById('celular').value.trim();
@@ -426,6 +428,12 @@
   if (!nombre || !email || !clave || !confirmarClave) {
     alert('⚠️ Por favor complete todos los campos obligatorios');
     return;
+  }
+
+  // Aquí iría el código para guardar el árbitro
+}
+</script>
+-->
   }
 
   if (!email.includes('@') || !email.includes('.')) {
@@ -1043,6 +1051,7 @@
 </script>
 </body>
 </html>
+
 
 
 
