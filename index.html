@@ -868,6 +868,18 @@
             html += '</table>';
             contenedor.innerHTML = html;
         }
+<!-- Pestaña de Estadísticas -->
+<div id="estadisticas" class="tab-pane">
+  <h2>📈 Estadísticas de Disponibilidad</h2>
+  <div class="form-group">
+    <label for="semana-estadistica">Seleccionar Semana:</label>
+    <input type="week" id="semana-estadistica">
+  </div>
+  <button onclick="generarEstadisticas()">📊 Generar Estadísticas</button>
+  <div id="grafico-estadisticas" style="margin-top: 30px;">
+    <canvas id="estadisticasChart" width="400" height="200"></canvas>
+  </div>
+</div>
 
         function generarEstadisticas() {
             const semana = document.getElementById('semana-estadistica').value;
@@ -928,4 +940,5 @@
     </script>
 </body>
 </html>
+
 
