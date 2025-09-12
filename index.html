@@ -254,38 +254,13 @@ function cambiarPestaña(id) {
   const horarioDiv = document.getElementById(`${dia}-horario`);
   horarioDiv.style.display = select.value === "ESPECIAL" ? "block" : "none";
 }
-
 <script>
-  function guardarDisponibilidad() {
-    const dias = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
-    const disponibilidad = {};
-
-    dias.forEach(dia => {
-      const tipo = document.getElementById(dia).value;
-      const inicio = document.getElementById(`${dia}-inicio`)?.value || '';
-      const fin = document.getElementById(`${dia}-fin`)?.value || '';
-
-      disponibilidad[dia] = {
-        tipo,
-        horario: tipo === 'ESPECIAL' ? `${inicio} a ${fin}` : ''
-      };
-    });
-
-    console.log('Disponibilidad guardada:', disponibilidad); // Puedes reemplazar esto con envío a Airtable
-
-    // Limpiar los campos
-    dias.forEach(dia => {
-      document.getElementById(dia).value = '';
-      document.getElementById(`${dia}-horario`).style.display = 'none';
-      if (document.getElementById(`${dia}-inicio`)) document.getElementById(`${dia}-inicio`).value = '';
-      if (document.getElementById(`${dia}-fin`)) document.getElementById(`${dia}-fin`).value = '';
-    });
-
-    alert('Disponibilidad guardada correctamente ✅');
+alert('Disponibilidad guardada correctamente ✅');
   }
 </script>
 </body>
 </html>
+
 
 
 
