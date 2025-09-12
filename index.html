@@ -2,274 +2,110 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Gestión de Arbitraje</title>
-  <!-- Aquí van tus estilos CSS (puedes copiar los que ya tenías) -->
- <style>
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  }
-
-  .error-message {
-    color: red;
-    display: none;
-    margin-top: 10px;
-  }
-
-  .tab-pane {
-    display: none;
-  }
-
-  .tab-pane.active {
-    display: block;
-  }
-</style>
+  <title>Disponibilidad de Árbitros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6f8;
+      padding: 2rem;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .dia {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    select, input[type="time"] {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .horario {
+      display: none;
+    }
+    button {
+      background: #0078d4;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: block;
+      margin: 2rem auto;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>⚽ Sistema de Gestión de Arbitraje</h1>
-      <p>Plataforma integral para administración de árbitros</p>
-    </header>
+  <h1>Gestión de Disponibilidad</h1>
 
-    <div class="nav-tabs">
-      <button class="tab-btn active" onclick="cambiarPestaña('login')">🔐 Login</button>
-      <!-- <button class="tab-btn" onclick="cambiarPestaña('registro')">👥 Registro Árbitros</button> -->
-      <button onclick="verificarAcceso('disponibilidad')">📊 Mi Disponibilidad</button>
-      <button class="tab-btn" onclick="solicitarAccesoAdmin('disponibilidad-general')">🌐 Disponibilidad General</button>
-      <button class="tab-btn" onclick="solicitarAccesoAdmin('estadisticas')">📈 Estadísticas</button>
-      <button class="tab-btn" onclick="cambiarPestaña('formulario-airtable')">📝 Formulario Airtable</button>
-    </div>
+  <div id="contenedor-dias"></div>
 
-    <div class="tab-content">
-      <div id="login" class="tab-pane active">
-        <!-- Formulario de login -->
-      </div>
+  <button onclick="guardarDisponibilidad()">💾 Guardar Disponibilidad</button>
 
-      <!-- <div id="registro" class="tab-pane"> ... </div> -->
-       <div class="disponibilidad-grid">
-    <div class="dia-card">
-      <h3>Lunes</h3>
-      <select id="lunes" onchange="toggleHorario('lunes')">
-        <option value="">Seleccionar</option>
-        <option value="COMPLETA">Disponibilidad Completa</option>
-        <option value="ESPECIAL">Horario Especial</option>
-        <option value="NO">No Disponible</option>
-      </select>
-      <div id="lunes-horario" style="display: none;">
-        <label>Horario específico:</label>
-        <input type="time" id="lunes-inicio"> a 
-        <input type="time" id="lunes-fin">
-      </div>
-    </div>
-
-    <!-- Repetí este bloque para cada día -->
-    <!-- Martes -->
-    <div class="dia-card">
-      <h3>Martes</h3>
-      <select id="martes" onchange="toggleHorario('martes')">
-        <option value="">Seleccionar</option>
-        <option value="COMPLETA">Disponibilidad Completa</option>
-        <option value="ESPECIAL">Horario Especial</option>
-        <option value="NO">No Disponible</option>
-      </select>
-      <div id="martes-horario" style="display: none;">
-        <label>Horario específico:</label>
-        <input type="time" id="martes-inicio"> a 
-        <input type="time" id="martes-fin">
-        </div>
-        </div>
-        <!-- Miércoles -->
-<div class="dia-card">
-  <h3>Miércoles</h3>
-  <select id="miércoles" onchange="toggleHorario('miércoles')">
-    <option value="">Seleccionar</option>
-    <option value="COMPLETA">Disponibilidad Completa</option>
-    <option value="ESPECIAL">Horario Especial</option>
-    <option value="NO">No Disponible</option>
-  </select>
-  <div id="miércoles-horario" style="display: none;">
-    <label>Horario específico:</label>
-    <input type="time" id="miércoles-inicio"> a <input type="time" id="miércoles-fin">
-  </div>
-</div>
-
-<!-- Jueves -->
-<div class="dia-card">
-  <h3>Jueves</h3>
-  <select id="jueves" onchange="toggleHorario('jueves')">
-    <option value="">Seleccionar</option>
-    <option value="COMPLETA">Disponibilidad Completa</option>
-    <option value="ESPECIAL">Horario Especial</option>
-    <option value="NO">No Disponible</option>
-  </select>
-  <div id="jueves-horario" style="display: none;">
-    <label>Horario específico:</label>
-    <input type="time" id="jueves-inicio"> a <input type="time" id="jueves-fin">
-  </div>
-</div>
-
-<!-- Viernes -->
-<div class="dia-card">
-  <h3>Viernes</h3>
-  <select id="viernes" onchange="toggleHorario('viernes')">
-    <option value="">Seleccionar</option>
-    <option value="COMPLETA">Disponibilidad Completa</option>
-    <option value="ESPECIAL">Horario Especial</option>
-    <option value="NO">No Disponible</option>
-  </select>
-  <div id="viernes-horario" style="display: none;">
-    <label>Horario específico:</label>
-    <input type="time" id="viernes-inicio"> a <input type="time" id="viernes-fin">
-  </div>
-</div>
-
-<!-- Sábado -->
-<div class="dia-card">
-  <h3>Sábado</h3>
-  <select id="sábado" onchange="toggleHorario('sábado')">
-    <option value="">Seleccionar</option>
-    <option value="COMPLETA">Disponibilidad Completa</option>
-    <option value="ESPECIAL">Horario Especial</option>
-    <option value="NO">No Disponible</option>
-  </select>
-  <div id="sábado-horario" style="display: none;">
-    <label>Horario específico:</label>
-    <input type="time" id="sábado-inicio"> a <input type="time" id="sábado-fin">
-  </div>
-</div>
-
-<!-- Domingo -->
-<div class="dia-card">
-  <h3>Domingo</h3>
-  <select id="domingo" onchange="toggleHorario('domingo')">
-    <option value="">Seleccionar</option>
-    <option value="COMPLETA">Disponibilidad Completa</option>
-    <option value="ESPECIAL">Horario Especial</option>
-    <option value="NO">No Disponible</option>
-  </select>
-  <div id="domingo-horario" style="display: none;">
-    <label>Horario específico:</label>
-    <input type="time" id="domingo-inicio"> a <input type="time" id="domingo-fin">
-  </div>
-</div>
-      </div>
-    </div>
- <div style="text-align: center; margin-top: 20px;">
-  <button onclick="guardarDisponibilidad()" style="padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">
-    💾 Guardar Disponibilidad
-  </button>
-</div>
-    ✅ Disponibilidad guardada exitosamente!
-  </div>
-</div>
-            <div id="disponibilidad-general" class="tab-pane">
-        <!-- Filtros y tabla de resultados -->
-      </div>
-
-      <div id="estadisticas" class="tab-pane">
-        <!-- Gráfico de estadísticas -->
-      </div>
-
-      <div id="formulario-airtable" class="tab-pane">
-        <h2>📝 Registro vía Airtable</h2>
-        <h2>📝 Registro de Disponibilidad vía Airtable</h2>
-  <p>Complete el siguiente formulario para registrar su disponibilidad como árbitro:</p>
-  <a href="https://airtable.com/app0oO9e0zIX0F4kO/pagRsfuknfLobdPR3/form" target="_blank">
-    <button style="padding: 12px 24px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">
-  📝 Abrir Formulario Airtable
-</button>
-</a>
-</div>
-
-    </div>
-
-    <div id="modalSeguridad" class="modal">
-      <div class="modal-content">
-        <h3>🔒 Acceso Restringido</h3>
-        <input type="password" id="claveAcceso" placeholder="Clave de seguridad">
-        <button onclick="verificarClave()">🔓 Acceder</button>
-        <p id="mensajeError" class="error-message">❌ Clave incorrecta</p>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Aquí van tus funciones JavaScript: cambiarPestaña, iniciarSesion, guardarDisponibilidad, etc.
-    // Ya está eliminada la función registrarArbitro
+    const dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-    function cambiarPestaña(id) {
-      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    const contenedor = document.getElementById('contenedor-dias');
+
+    dias.forEach(dia => {
+      const div = document.createElement('div');
+      div.className = 'dia';
+      div.innerHTML = `
+        <label>${dia}</label>
+        <select id="${dia}-tipo" onchange="toggleHorario('${dia}')">
+          <option value="">Seleccionar</option>
+          <option value="COMPLETA">Disponibilidad Completa</option>
+          <option value="ESPECIAL">Horario Especial</option>
+          <option value="NO">No Disponible</option>
+        </select>
+        <div class="horario" id="${dia}-horario">
+          <label>Inicio</label>
+          <input type="time" id="${dia}-inicio">
+          <label>Fin</label>
+          <input type="time" id="${dia}-fin">
+        </div>
+      `;
+      contenedor.appendChild(div);
+    });
+
+    function toggleHorario(dia) {
+      const tipo = document.getElementById(`${dia}-tipo`).value;
+      const horarioDiv = document.getElementById(`${dia}-horario`);
+      horarioDiv.style.display = tipo === 'ESPECIAL' ? 'block' : 'none';
     }
 
-    window.onload = () => cambiarPestaña('login');
-    function verificarAcceso(id) {
-  cambiarPestaña(id);
-}
-
-function solicitarAccesoAdmin(id) {
-  document.getElementById('modalSeguridad').style.display = 'flex';
-  document.getElementById('modalSeguridad').dataset.destino = id;
-}
-
-function verificarClave() {
-  const clave = document.getElementById('claveAcceso').value;
-  const destino = document.getElementById('modalSeguridad').dataset.destino;
-  if (clave === 'admin123') {
-    document.getElementById('modalSeguridad').style.display = 'none';
-    document.getElementById('mensajeError').style.display = 'none';
-    cambiarPestaña(destino);
-  } else {
-    document.getElementById('mensajeError').style.display = 'block';
-  }
-}
-function cambiarPestaña(id) {
-  const pestañas = document.querySelectorAll('.tab-pane');
-  pestañas.forEach(p => p.classList.remove('active'));
-
-  const destino = document.getElementById(id);
-  if (destino) {
-    destino.classList.add('active');
-  }
-}
- function toggleHorario(dia) {
-  const select = document.getElementById(dia);
-  const horarioDiv = document.getElementById(`${dia}-horario`);
-  horarioDiv.style.display = select.value === "ESPECIAL" ? "block" : "none";
-}
-<script>
-alert('Disponibilidad guardada correctamente ✅');
-  }
-</script>
+    function guardarDisponibilidad() {
+      const resultado = {};
+      dias.forEach(dia => {
+        const tipo = document.getElementById(`${dia}-tipo`).value;
+        const inicio = document.getElementById(`${dia}-inicio`)?.value || '';
+        const fin = document.getElementById(`${dia}-fin`)?.value || '';
+        resultado[dia] = {
+          tipo,
+          horario: tipo === 'ESPECIAL' ? `${inicio} a ${fin}` : ''
+        };
+      });
+      console.log('✅ Disponibilidad guardada:', resultado);
+      alert('Disponibilidad guardada correctamente ✅');
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
