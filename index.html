@@ -379,10 +379,71 @@
                 <div class="form-group">
                     <label for="clave-personal">Clave Personal:</label>
                     <input type="password" id="clave-personal" placeholder="Crear clave personal">
+                    <script>
+  function cambiarPestaña(id) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  // Mostrar la primera pestaña por defecto al cargar
+  window.onload = () => cambiarPestaña('estadisticas');
+</script>
+
                 </div>
-                <button onclick="registrarArbitro()">💾 Guardar Árbitro</button>
-                <div id="registro-success" class="success-message">✅ Árbitro registrado exitosamente!</div>
-            </div>
+                function registrarArbitro() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const celular = document.getElementById('celular').value.trim();
+  const ciudad = document.getElementById('ciudad').value.trim();
+  const categoria = document.getElementById('categoria').value;
+  const clave = document.getElementById('clave-personal').value;
+  const confirmarClave = document.getElementById('confirmar-clave').value;
+
+  // Validaciones
+  if (!nombre || !email || !clave || !confirmarClave) {
+    alert('⚠️ Por favor complete todos los campos obligatorios');
+    return;
+  }
+
+  if (!email.includes('@') || !email.includes('.')) {
+    alert('📧 Email inválido');
+    return;
+  }
+
+  if (clave.length < 6) {
+    alert('🔐 La clave debe tener al menos 6 caracteres');
+    return;
+  }
+
+  if (clave !== confirmarClave) {
+    alert('❌ Las claves no coinciden');
+    return;
+  }
+
+  if (arbitros.find(a => a.email === email)) {
+    alert('⚠️ Este email ya está registrado');
+    return;
+  }
+
+  const arbitro = { nombre, email, celular, ciudad, categoria, clave };
+  arbitros.push(arbitro);
+  localStorage.setItem('arbitros', JSON.stringify(arbitros));
+
+  document.getElementById('registro-success').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('registro-success').style.display = 'none';
+  }, 3000);
+
+  // Limpiar formulario
+  document.getElementById('nombre').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('celular').value = '';
+  document.getElementById('ciudad').value = '';
+  document.getElementById('categoria').value = '';
+  document.getElementById('clave-personal').value = '';
+  document.getElementById('confirmar-clave').value = '';
+}
+
 
             <!-- Pestaña de Disponibilidad Semanal -->
             <div id="disponibilidad" class="tab-pane">
@@ -965,6 +1026,7 @@
 </script>
 </body>
 </html>
+
 
 
 
