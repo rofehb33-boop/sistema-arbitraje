@@ -542,6 +542,11 @@
                     <p>Seleccione "Cargar Todo" o aplique filtros para ver los resultados...</p>
                 </div>
             </div>
+<!-- 🔘 Botones de navegación entre pestañas -->
+<div class="tab-buttons" style="margin-bottom: 20px;">
+  <button class="tab-btn" onclick="cambiarPestaña('estadisticas')">📈 Estadísticas</button>
+  <button class="tab-btn" onclick="cambiarPestaña('formulario-airtable')">📝 Formulario Airtable</button>
+</div>
 
             <!-- Pestaña de Estadísticas -->
             <div id="estadisticas" class="tab-pane">
@@ -949,9 +954,18 @@
             console.log('Árbitros registrados:', arbitros.length);
             console.log('Disponibilidades guardadas:', disponibilidades.length);
         });
-    </script>
+   <script>
+  function cambiarPestaña(id) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  // Mostrar la primera pestaña por defecto al cargar
+  window.onload = () => cambiarPestaña('estadisticas');
+</script>
 </body>
 </html>
+
 
 
 
